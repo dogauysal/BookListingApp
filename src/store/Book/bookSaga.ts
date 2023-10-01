@@ -1,15 +1,15 @@
-import { IBook } from "../../models/IBook";
 import { put, call, takeLatest } from 'redux-saga/effects';
 import BookService from "../../services/BookService";
 import { bookActionTypes } from "./bookTypes";
+import { IBookResponse } from "../../models/IBookResponse";
 
 function* getAllBooks() {
-    const response: IBook[] = yield call(BookService.getAllBooks);
+    const response: IBookResponse = yield call(BookService.getAllBooks);
 
     if (response) {
         yield put({
             type: bookActionTypes.BOOK_LIST_SUCCESS,
-            books: response
+            books: response.books
         })
     } else {
         yield put({

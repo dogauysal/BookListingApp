@@ -1,23 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import MainScreen from './src/screens/MainScreen';
 import { Provider } from 'react-redux';
 import store from './src/store/store';
+import * as SplashScreen from 'expo-splash-screen';
+import React from 'react';
+import { appStyles } from './src/styles/screenStyles';
+
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+
   return (
-    <Provider store={store}>
-      <MainScreen />
-    </Provider>
+    <SafeAreaView style={appStyles.container}>
+      <Provider store={store}>
+        <MainScreen />
+      </Provider>
+    </SafeAreaView>
 
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
