@@ -31,7 +31,7 @@ const SearchBar = () => {
             <Image source={require("../assets/icons/search.png")} style={searchbarStyles.searchIcon} />
             <TextInput
                 ref={searchInputRef}
-                placeholder="Arama Yap"
+                placeholder="Search Book or Author"
                 style={searchbarStyles.input}
                 onChangeText={handleSearchBarChange}
                 autoComplete="off"

@@ -1,5 +1,5 @@
 
-export enum SortOrder {
+export enum SortingType {
     ASC = "ASCENDING",
     DESC = "DESCENDING"
 }

@@ -1,4 +1,4 @@
-import { SortOrder } from "../../enums/SortOrder";
+import { SortingType } from "../../enums/SortingType";
 import { IBook } from "../../models/IBook";
 
 export enum bookActionTypes {
@@ -36,7 +36,7 @@ export interface ClearSearchText {
 
 export interface SetSortOrder {
     type: bookActionTypes.SET_SORT_ORDER
-    sortOrder: SortOrder
+    sortingType: SortingType
 }
 
 export interface ClearSortOrder {
@@ -56,5 +56,5 @@ export interface BookState {
     books: IBook[]
     error: string
     searchText: string
-    sortOrder: SortOrder | null
+    sortingType: SortingType | null
 }

@@ -1,4 +1,4 @@
-import { SortOrder } from "../../enums/SortOrder";
+import { SortingType } from "../../enums/SortingType";
 import { bookActionTypes } from "./bookTypes";
 
 export const GetAllBooks = () => ({
@@ -14,9 +14,9 @@ export const ClearSearchText = () => ({
     type: bookActionTypes.CLEAR_SEARCH_TEXT
 })
 
-export const SetSortOrder = (sortOrder: SortOrder) => ({
+export const SetSortOrder = (sortingType: SortingType) => ({
     type: bookActionTypes.SET_SORT_ORDER,
-    sortOrder
+    sortingType
 })
 
 export const ClearSortOrder = () => ({

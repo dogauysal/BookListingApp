@@ -3,7 +3,7 @@ import { BookActions, BookState, bookActionTypes } from "./bookTypes";
 const initialState: BookState = {
     books: [],
     searchText: "",
-    sortOrder: null,
+    sortingType: null,
     error: ""
 }
 
@@ -36,7 +36,7 @@ const bookReducer = (state: BookState = initialState, action: BookActions): Book
         case bookActionTypes.SET_SORT_ORDER:
             return {
                 ...state,
-                sortOrder: action.sortOrder
+                sortingType: action.sortingType
             }
         case bookActionTypes.CLEAR_SORT_ORDER:
             return {

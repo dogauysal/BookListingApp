@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo } from "react"
-import { View, Text, StyleSheet, FlatList } from "react-native"
+import { View, FlatList } from "react-native"
 import { useDispatch, useSelector } from "react-redux"
 import { GetAllBooks, SetSortOrder } from "../store/Book/bookActions"
 import * as SplashScreen from 'expo-splash-screen';
@@ -11,8 +11,8 @@ import Header from "../components/Header";
 import { mainStyles } from "../styles/screenStyles";
 import SortButton from "../components/SortButton";
 import Row from "../components/shared/Row";
-import { SortOrder } from "../enums/SortOrder";
-
+import { SortingType } from "../enums/SortingType";
+import { logEvent } from "firebase/analytics";
 
 const MainScreen = () => {
 
@@ -20,10 +20,7 @@ const MainScreen = () => {
 
     const books = useSelector<RootState, IBook[]>(state => state.Book.books)
     const searchText = useSelector<RootState, string>(state => state.Book.searchText)
-    const sortOrder = useSelector<RootState, SortOrder | null>(state => state.Book.sortOrder)
-
-
-
+    const sortingType = useSelector<RootState, SortingType | null>(state => state.Book.sortingType)
 
     useEffect(() => {
         prepareApp()
@@ -45,38 +42,37 @@ const MainScreen = () => {
 
     const renderItem = ({ item }: { item: IBook }) => <BookItem book={item} />
 
-    const SortBooks = (order: SortOrder) => {
-        dispatch(SetSortOrder(order))
+    const ChangeSortOrder = (type: SortingType) => {
+        dispatch(SetSortOrder(type))
     }
 
     const sortFilteredBooks = useCallback((booksToBeSorted: IBook[]) => {
 
         const sortedBooks = [...booksToBeSorted]
 
-        if (sortOrder) {
-            if (sortOrder === SortOrder.ASC) {
+        if (sortingType) {
+            if (sortingType === SortingType.ASC) {
                 sortedBooks.sort((a, b) => a.publicationYear - b.publicationYear);
             } else {
                 sortedBooks.sort((a, b) => b.publicationYear - a.publicationYear);
             }
         }
 
-
         return sortedBooks
-    }, [sortOrder])
+    }, [sortingType])
 
 
     const filteredBooks = useMemo(() => {
         return sortFilteredBooks(books.filter((book) => book.title.toLowerCase().includes(searchText.toLowerCase()) || book.author.toLowerCase().includes(searchText.toLowerCase())))
-    }, [sortOrder, searchText, books])
+    }, [sortingType, searchText, books])
 
     return (
         <View style={mainStyles.container}>
             <Header title={"Book Listing App"} />
             <SearchBar />
             <Row>
-                <SortButton title="Ascending" imageSource={require("../assets/icons/ascending.png")} onPress={() => SortBooks(SortOrder.ASC)} />
-                <SortButton title="Descending" imageSource={require("../assets/icons/descending.png")} onPress={() => SortBooks(SortOrder.DESC)} />
+                <SortButton title="Ascending" imageSource={require("../assets/icons/ascending.png")} onPress={() => ChangeSortOrder(SortingType.ASC)} />
+                <SortButton title="Descending" imageSource={require("../assets/icons/descending.png")} onPress={() => ChangeSortOrder(SortingType.DESC)} />
             </Row>
             <FlatList
                 data={filteredBooks}
