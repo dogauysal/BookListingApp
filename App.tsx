@@ -1,4 +1,4 @@
-import { Alert, SafeAreaView } from 'react-native';
+import { SafeAreaView } from 'react-native';
 import MainScreen from './src/screens/MainScreen';
 import { Provider } from 'react-redux';
 import store from './src/store/store';
@@ -8,14 +8,6 @@ import { appStyles } from './src/styles/screenStyles';
 import * as Notifications from 'expo-notifications';
 
 SplashScreen.preventAutoHideAsync();
-
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: false,
-    shouldSetBadge: false,
-  }),
-});
 
 export default function App() {
 

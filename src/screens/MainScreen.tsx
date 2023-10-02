@@ -12,7 +12,6 @@ import { mainStyles } from "../styles/screenStyles";
 import SortButton from "../components/SortButton";
 import Row from "../components/shared/Row";
 import { SortingType } from "../enums/SortingType";
-import { logEvent } from "firebase/analytics";
 
 const MainScreen = () => {
 
@@ -24,6 +23,8 @@ const MainScreen = () => {
 
     useEffect(() => {
         prepareApp()
+
+
     }, [])
 
     const prepareApp = async () => {
